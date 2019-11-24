@@ -1,0 +1,19 @@
+[package]
+name = "bwasm"
+version = "0.1.0"
+authors = ["Benedikt Werner <1benediktwerner@gmail.com>"]
+
+description = "Loader for wasm binaries"
+license = "MIT OR Apache-2.0"
+keywords = ["wasm", "webassembly", "loader", "parser"]
+categories = ["wasm"]
+readme = "README.md"
+documentation = "https://docs.rs/bwasm"
+homepage = "https://github.com/benediktwerner/bwasm"
+repository = "https://github.com/benediktwerner/bwasm.git"
+
+edition = "2018"
+
+[dependencies]
+parity-wasm = "0.41"
+wasmi-validation = "0.3"
