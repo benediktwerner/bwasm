@@ -5,8 +5,8 @@ use core::iter::{self, FromIterator};
 use parity_wasm::elements as pwasm;
 
 pub use parity_wasm::elements::{
-    BlockType, CustomSection, ExportEntry, External, GlobalType, ImportEntry, Instruction,
-    Internal, MemoryType, ResizableLimits, TableElementType, TableType, ValueType,
+    BlockType, BrTableData, CustomSection, ExportEntry, External, GlobalType, ImportEntry,
+    Instruction, Internal, MemoryType, ResizableLimits, TableElementType, TableType, ValueType,
 };
 pub use parity_wasm::SerializationError;
 pub use wasmi_validation::Error as ValidationError;
@@ -235,7 +235,7 @@ impl Global {
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub struct Table {
     is_imported: bool,
-    element_type: TableElementType,
+    elem_type: TableElementType,
     limits: ResizableLimits,
 }
 
@@ -243,8 +243,8 @@ impl Table {
     pub const fn is_imported(&self) -> bool {
         self.is_imported
     }
-    pub const fn element_type(&self) -> TableElementType {
-        self.element_type
+    pub const fn elem_type(&self) -> TableElementType {
+        self.elem_type
     }
     pub const fn limits(&self) -> &ResizableLimits {
         &self.limits
@@ -357,7 +357,7 @@ impl Module {
                     )),
                     External::Table(table_type) => tables.push(Table {
                         is_imported: true,
-                        element_type: table_type.elem_type(),
+                        elem_type: table_type.elem_type(),
                         limits: *table_type.limits(),
                     }),
                     External::Memory(memory_type) => memories.push(Memory {
@@ -503,7 +503,7 @@ fn handle_table_section(tables: &mut Vec<Table>, module: &mut pwasm::Module) {
     if let Some(table_sec) = module.table_section_mut() {
         tables.extend(table_sec.entries_mut().drain(..).map(|table_type| Table {
             is_imported: false,
-            element_type: table_type.elem_type(),
+            elem_type: table_type.elem_type(),
             limits: *table_type.limits(),
         }));
     }
