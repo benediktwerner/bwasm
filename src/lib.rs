@@ -110,7 +110,7 @@ impl Function {
         }
     }
 
-    const fn new_imported(name: String, func_type: FunctionType) -> Self {
+    fn new_imported(name: String, func_type: FunctionType) -> Self {
         Function {
             name,
             func_type,
