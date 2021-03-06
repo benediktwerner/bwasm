@@ -268,39 +268,35 @@ impl Memory {
 
 #[derive(Clone, PartialEq, Debug)]
 pub struct TableInit {
-    index: u32,
-    offset: InitExpr,
-    entries: Vec<u32>,
+    pub index: u32,
+    pub offset: InitExpr,
+    pub entries: Vec<u32>,
 }
 
 impl TableInit {
-    pub const fn index(&self) -> u32 {
-        self.index
-    }
-    pub const fn offset(&self) -> &InitExpr {
-        &self.offset
-    }
-    pub fn entries(&self) -> &[u32] {
-        &self.entries
+    pub fn new(index: u32, offset: InitExpr, entries: Vec<u32>) -> Self {
+        TableInit {
+            index,
+            offset,
+            entries,
+        }
     }
 }
 
 #[derive(Clone, PartialEq, Debug)]
 pub struct MemoryInit {
-    index: u32,
-    offset: InitExpr,
-    data: Vec<u8>,
+    pub index: u32,
+    pub offset: InitExpr,
+    pub data: Vec<u8>,
 }
 
 impl MemoryInit {
-    pub const fn index(&self) -> u32 {
-        self.index
-    }
-    pub const fn offset(&self) -> &InitExpr {
-        &self.offset
-    }
-    pub fn data(&self) -> &[u8] {
-        &self.data
+    pub fn new(index: u32, offset: InitExpr, data: Vec<u8>) -> Self {
+        MemoryInit {
+            index,
+            offset,
+            data,
+        }
     }
 }
 
